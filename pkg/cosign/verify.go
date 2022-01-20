@@ -403,22 +403,22 @@ func loadSignatureFromFile(sigRef string, signedImgRef name.Reference, co *Check
 	} else {
 		b64sig = base64.StdEncoding.EncodeToString(targetSig)
 	}
+	fmt.Println("Hello World!")
+	fmt.Println(b64sig)
 
 	digest, err := ociremote.ResolveDigest(signedImgRef, co.RegistryClientOpts...)
-	if err != nil {
-		return nil, err
-	}
+	if err != nil { return nil, err }
+	fmt.Println(digest)
 
 	payload, err := (&sigPayload.Cosign{Image: digest}).MarshalJSON()
 
-	if err != nil {
-		return nil, err
-	}
-
+	if err != nil { return nil, err }
+	fmt.Println(payload)
+	
 	sig, err := static.NewSignature(payload, b64sig)
-	if err != nil {
-		return nil, err
-	}
+	if err != nil { return nil, err }
+	fmt.Println(sig)
+	
 	return &fakeOCISignatures{
 		signatures: []oci.Signature{sig},
 	}, nil
