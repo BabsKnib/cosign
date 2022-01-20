@@ -66,6 +66,7 @@ type VerifyCommand struct {
 
 // Exec runs the verification command
 func (c *VerifyCommand) Exec(ctx context.Context, images []string) (err error) {
+	fmt.Println("Hello World!")
 	if len(images) == 0 {
 		return flag.ErrHelp
 	}
